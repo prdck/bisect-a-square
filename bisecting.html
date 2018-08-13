@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>平分正方形</title>
+    <style type="text/css">
+        *{
+            margin:0 auto;
+            padding: 0;
+        }
+        .big_div{
+            width:500px;
+            height: 500px;
+            background: pink;
+            outline: 2px solid red;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="big_div" class="big_div">
+    </div>
+</body>
+    <script type="text/javascript">
+        var big_div=document.getElementById("big_div");
+        var count=0;
+        big_div.onclick=function(){
+            count++;
+            big_div.innerHTML="";
+            var w_div=Math.ceil((count+1)/2);//横向div数量
+            var h_div=Math.ceil((count+2)/2);//纵向div数量
+            for(var k=0;k<w_div*h_div;k++){
+                var div=document.createElement("div");
+                big_div.appendChild(div);
+                var div_small=big_div.getElementsByTagName("div");
+                var w=big_div.offsetWidth/w_div;
+                var h=big_div.offsetHeight/h_div;   
+            }
+            for(var j=0;j<w_div*h_div;j++){
+                div_small[j].style.cssText="float:left;outline:2px solid red;width:"+w+"px;height:"+h+"px;";
+            }   
+        }   
+    </script>
+</html>
