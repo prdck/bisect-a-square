@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: black;
+            color: white;
+        }
+        .song{
+            width:15%;
+            min-width:200px;
+        }
+        h3{
+            text-align: center;
+            font-size: 25px;
+            -webkit-text-stroke:1px red; 
+            margin-bottom: 15px;
+            letter-spacing: 8px;
+        }
+        ul li{
+            list-style: none;
+            text-align: center;
+            padding: 10px 0;
+            cursor: pointer;
+            letter-spacing: 2px;
+        }
+        .demo{
+            overflow: hidden;
+            position:relative;
+        }
+        .wrap{
+            position: absolute;
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="song" class="song">
+        <h3>刚好遇见你</h3>
+        <div id="demo" class="demo">
+            <ul id="wrap" class="wrap">
+                <li>我们哭了</li>
+                <li>我们笑着</li> 
+                <li>我们抬头望天空</li>
+                <li>星星还亮着几颗</li>
+                <li>我们唱着</li>
+                <li>时间的歌</li> 
+                <li>才懂得相互拥抱</li> 
+                <li>到底是为了什么</li>
+                <li>因为我刚好遇见你</li>
+                <li>留下足迹才美丽</li>
+                <li>风吹花落泪如雨</li>
+                <li>因为不想分离</li>
+                <li>因为刚好遇见你</li>
+                <li>留下十年的期许</li>
+                <li>如果再相遇</li>
+                <li>我想我会记得你</li>
+                <li>我们哭了</li>
+                <li>我们笑着</li> 
+                <li>我们抬头望天空</li> 
+                <li>星星还亮着几颗</li>
+                <li>我们唱着</li> 
+                <li>时间的歌</li>
+                <li>才懂得相互拥抱</li> 
+                <li>到底是为了什么</li> 
+                <li>因为我刚好遇见你</li> 
+                <li>留下足迹才美丽</li> 
+                <li>风吹花落泪如雨</li> 
+                <li>因为不想分离</li> 
+                <li>因为刚好遇见你</li> 
+                <li>留下十年的期许</li> 
+                <li>如果再相遇</li> 
+                <li>我想我会记得你</li> 
+                <li>因为我刚好遇见你</li> 
+                <li>留下足迹才美丽</li> 
+                <li>风吹花落泪如雨</li> 
+                <li>因为不想分离</li> 
+                <li>因为刚好遇见你</li> 
+                <li>留下十年的期许</li> 
+                <li>如果再相遇</li>
+                <li>我想我会记得你</li> 
+                <li>因为我刚好遇见你</li> 
+                <li>留下足迹才美丽</li> 
+                <li>风吹花落泪如雨</li> 
+                <li>因为不想分离</li> 
+                <li>因为刚好遇见你</li> 
+                <li>留下十年的期许</li> 
+                <li>如果再相遇</li> 
+                <li>我想我会记得你</li> 
+            </ul>
+        </div>
+    <div>
+</body>
+<script type="text/javascript">
+    var demo=document.getElementById("demo");
+    var wrap=document.getElementById("wrap");
+    var lis=wrap.getElementsByTagName("li");
+    var timer=null;
+    var index=0;
+    lis[index].style.color="deeppink";
+    demo.style.height=lis[0].offsetHeight*10+"px";//这样设置高度，避免文字只露出一半
+    //垂直居中
+    function fn(){
+        var w=document.documentElement.clientWidth
+
+        || document.body.clientWidth;
+        var h=document.documentElement.clientHeight
+
+        || document.body.clientHeight;
+        var song=document.getElementById("song");
+        song.style.marginLeft=(w-song.offsetWidth)/2+"px";
+        song.style.marginTop=(h-song.offsetHeight)/2+"px";
+    };
+    fn();
+    window.onresize=fn;//当窗口大小变化时也及时更新。
+ //无缝滚动
+    wrap.innerHTML+=wrap.innerHTML;
+    wrap.style.height=lis[0].offsetHeight*lis.length+"px";
+    function move(){
+        if(wrap.offsetTop<=-wrap.offsetHeight/2){
+            wrap.style.top=0;
+        }
+        //wrap.style.top=wrap.offsetTop-lis[0].offsetHeight+"px";
+        wrap.style.top=-lis[0].offsetHeight*index-lis[0].offsetHeight+"px";
+         for(var i=0;i<lis.length;i++){
+                lis[i].style.color="white";//因为点击li元素时，li的文字有颜色，要将所有li元素的颜色设置为白色
+            }
+
+        index++;
+        if(index>=lis.length/2){
+            lis[index].style.color="deeppink";//第二次的第一个相当于第一次的第一个（切换）
+            index=0;    
+        }
+        lis[index].style.color="deeppink";
+    }
+    timer=setInterval(move,960);
+    //鼠标在为ul上，清除定时器;点击，改变字体颜色
+    wrap.onmouseover=function(){
+        clearInterval(timer);
+    }
+    wrap.onmouseout=function(){
+        timer=setInterval(move,960);
+    }
+    for(var i=0;i<lis.length/2;i++){
+        lis[i].index=i;
+        lis[i].onmouseover=function(){
+            for(var k=0;k<lis.length;k++){
+                lis[k].style.color="white";
+            }
+            this.style.color="deeppink";
+            index=this.index-1;
+            this.onclick=function(){
+                wrap.style.top=-lis[0].offsetHeight*index-lis[0].offsetHeight+"px";
+            }
+        };
+
+    }
+</script>
